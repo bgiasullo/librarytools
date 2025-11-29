@@ -38,9 +38,10 @@
     <h2>Zooniverse Data Cleanup</h2>
     <p>This tool accepts a CSV file and performs the following steps:</p>
      <ol>
-  <li>Removes extraneous text from your Zooniverse data file (things like [{"task":"T4","value":").</li>
-  <li>Finds and replaces unicode with its corresponding symbol (Example: Replaces \u0026 with &).</li>
-  <li>Compares multiple annotations for each subject, finds the two most similar annotations, then selects one of them to be the final transcript.</li>
+         <li>Removes all but the necessary columns (annotations and subject_ids)</li>
+  <li>Removes extraneous text from your Zooniverse data file (things like [{"task":"T4","value":")</li>
+  <li>Finds and replaces unicode with its corresponding symbol (Example: Replaces \u0026 with &)</li>
+  <li>Compares multiple annotations for each subject, finds the two most similar annotations, then selects one of them to be the final transcript</li>
 </ol>
     
     <p>Upload your Zooniverse data as a CSV file and press 'Process CSV.' When the process is done, your cleaned data file will be downloaded as cleaned-zooniverse-data.csv.</p>
