@@ -1,3 +1,11 @@
+// Keep only subject_ids and annotations columns
+function filterColumns(rows) {
+  return rows.map(row => ({
+    subject_ids: row.subject_ids,
+    annotations: row.annotations
+  }));
+}
+
 // Text blocks to remove
 const removeBlocks = [
   `[{"task":"T4","value":"`,
@@ -22,7 +30,7 @@ function applyReplacements(text) {
     .replace(/♀/g, "[female]")
     .replace(/⚥/g, "[intersex]")
     .replace(/\\"/g, '"')
-    .replace(/\\n/g, \n);
+    .replace(/\\n/g, " [new line] ");
 }
 
 // Remove blocks
@@ -85,6 +93,9 @@ function processCSV() {
     skipEmptyLines: true,
     complete: function(results) {
       let rows = results.data;
+
+      // REMOVE all other columns first:
+      rows = filterColumns(rows);
 
       status.textContent = "Cleaning text...";
 
@@ -149,7 +160,7 @@ function processCSV() {
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "cleaned.csv";
+      a.download = "cleaned-zooniverse-data.csv";
       a.click();
       URL.revokeObjectURL(url);
 
