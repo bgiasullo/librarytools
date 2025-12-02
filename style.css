@@ -1,10 +1,27 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     padding: 12px;
+}
+
+button {
+    cursor: pointer;
+    padding: 12px;
+    background-color: bisque;
 }
 
 .container {
     border: 1px solid cornflowerblue;
     margin: 12px auto;
+    padding: 22px;
+    max-width: 988px;
+}
+
+input {
+    cursor: pointer;
+    background-color: floralwhite;
     padding: 12px;
 }
 
@@ -17,4 +34,3 @@ summary {
     margin: 12px auto;
     padding: 12px;
 }
-
