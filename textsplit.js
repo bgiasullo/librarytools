@@ -19,15 +19,6 @@ function resetUI() {
 $('clearBtn').onclick = resetUI;
 $('processBtn').onclick = handleProcess;
 
-// ------------------ Drag & Drop ------------------
-['dragenter','dragover'].forEach(ev => {
-  $('dropZone').addEventListener(ev, e => { e.preventDefault(); });
-});
-$('dropZone').addEventListener('drop', e => {
-  e.preventDefault();
-  if (e.dataTransfer.files[0]) fileInput.files = e.dataTransfer.files;
-});
-
 // ------------------ Processing ------------------
 function handleProcess() {
   const file = fileInput.files[0];
@@ -71,6 +62,24 @@ function splitByImage(text) {
   return out;
 }
 
+  // ------------------ ZIP Download ------------------
+$('downloadZip').onclick = async () => {
+  if (!splitFiles.length) return;
+  setStatus('Creating ZIP...');
+
+  const zip = new JSZip();
+  splitFiles.forEach(f => zip.file(f.name, f.blob));
+
+  const blob = await zip.generateAsync({type: 'blob'});
+  saveAs(blob, 'image_splits.zip');
+  setStatus(`ZIP downloaded.`);
+};
+
+// Show file name on selection
+fileInput.onchange = () => {
+  if (fileInput.files[0]) setStatus('Selected: ' + fileInput.files[0].name);
+};
+  
 // Build download list
 function buildList(parts) {
   outputList.innerHTML = '';
@@ -100,21 +109,3 @@ function buildList(parts) {
     outputList.appendChild(li);
   });
 }
-
-// ------------------ ZIP Download ------------------
-$('downloadZip').onclick = async () => {
-  if (!splitFiles.length) return;
-  setStatus('Creating ZIP...');
-
-  const zip = new JSZip();
-  splitFiles.forEach(f => zip.file(f.name, f.blob));
-
-  const blob = await zip.generateAsync({type: 'blob'});
-  saveAs(blob, 'image_splits.zip');
-  setStatus(`ZIP downloaded.`);
-};
-
-// Show file name on selection
-fileInput.onchange = () => {
-  if (fileInput.files[0]) setStatus('Selected: ' + fileInput.files[0].name);
-};
