@@ -30,14 +30,14 @@
     <button id="clearBtn">Clear</button>
   </div>
 
-  <div id="dropZone" class="drop">Or drag & drop a .txt file here</div>
   <div id="status" class="small"></div>
-  
   <div id="zipWrap" hidden>
     <button id="downloadZip">Download ZIP</button>
   </div>
   
   <ul id="outputList" hidden></ul>
+
+
 
   <div class="small">All processing occurs in your browser—nothing is uploaded.</div>
 </div>
@@ -66,15 +66,6 @@ function resetUI() {
 
 $('clearBtn').onclick = resetUI;
 $('processBtn').onclick = handleProcess;
-
-// ------------------ Drag & Drop ------------------
-['dragenter','dragover'].forEach(ev => {
-  $('dropZone').addEventListener(ev, e => { e.preventDefault(); });
-});
-$('dropZone').addEventListener('drop', e => {
-  e.preventDefault();
-  if (e.dataTransfer.files[0]) fileInput.files = e.dataTransfer.files;
-});
 
 // ------------------ Processing ------------------
 function handleProcess() {
@@ -118,8 +109,8 @@ function splitByImage(text) {
   }
   return out;
 }
-  
-// ------------------ ZIP Download ------------------
+
+  // ------------------ ZIP Download ------------------
 $('downloadZip').onclick = async () => {
   if (!splitFiles.length) return;
   setStatus('Creating ZIP...');
@@ -166,6 +157,7 @@ function buildList(parts) {
     outputList.appendChild(li);
   });
 }
+
 
 </script>
 </body>
