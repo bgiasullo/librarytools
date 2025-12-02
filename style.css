@@ -1,1 +1,20 @@
+body {
+    padding: 12px;
+}
+
+.container {
+    border: 1px solid cornflowerblue;
+    margin: 12px auto;
+    padding: 12px;
+}
+
+summary {
+    cursor: pointer;
+}
+
+.tool {
+    border: 1px dashed darkgoldenrod;
+    margin: 12px auto;
+    padding: 12px;
+}
 
