@@ -3,12 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Image-split Text Cleaner — Upload → Split → Download</title>
+  <title>Split a text file into multiple files</title>
   <style>
     body{
-      font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial;
       margin:24px;
-      color:#0f172a
     }
     .card{
       padding:20px;
@@ -18,7 +16,8 @@
     .controls{
       display:flex;
       gap:8px;
-      flex-wrap:wrap}
+      flex-wrap:wrap
+}
     input[type=file]{
       padding:6px
     }
@@ -40,8 +39,6 @@
       display:flex;
       align-items:center;
       justify-content:space-between;
-      padding:8px 10px;
-      border-radius:8px;
       background:#f1f5f9;
       margin-bottom:8px
     }
@@ -51,7 +48,6 @@
       background:#0f172a;
       color:#f8fafc;
       padding:12px;
-      border-radius:8px;
       overflow:auto
     }
     .small{
@@ -68,7 +64,7 @@
 </head>
 <body>
   <div class="card">
-    <h1>Image‑split Text Cleaner</h1>
+    <h1>Split a text file into multiple text files</h1>
     <p class="lead">Upload a plain text file. The script splits the file on occurrences of <code>Image &lt;number&gt;</code>, removes the marker and a leading <code>Transcription:</code> (if present immediately after the marker), and preserves all line breaks and symbols. Download each split file or a ZIP containing them all.</p>
 
     <div class="controls">
@@ -86,7 +82,8 @@
     </div>
 
     <hr />
-    <div class="small">Notes: This is client-side only — nothing is uploaded to a server. It works in modern browsers. If your file uses another marker (e.g. lowercase <code>image</code>), the script will still match case-insensitively.</div>
+    <div class="small">Notes: This is client-side only — nothing is uploaded to a server. It works in modern browsers. If your file uses another marker (e.g. lowercase <code>image</code>), the script will still match case-insensitively.
+</div>
   </div>
 
   <!-- JSZip and FileSaver from CDN for bundling downloads -->
