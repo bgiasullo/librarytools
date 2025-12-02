@@ -5,18 +5,18 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Image-split Text Cleaner — Upload → Split → Download</title>
   <style>
-    body{font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial;margin:24px;background:#f7fafc;color:#0f172a}
-    .card{background:white;border-radius:12px;padding:20px;box-shadow:0 6px 18px rgba(15,23,42,0.06);max-width:920px;margin:auto}
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial;margin:24px;}
+    .card{max-width:920px;margin:auto}
     h1{margin:0 0 6px;font-size:20px}
     p.lead{margin:0 0 16px;color:#334155}
     .controls{display:flex;gap:8px;flex-wrap:wrap}
     input[type=file]{padding:6px}
-    button{padding:8px 12px;border-radius:8px;border:0;background:#0ea5a4;color:white;cursor:pointer}
+    button{padding:8px 12px;background:#0ea5a4;color:white;cursor:pointer}
     button.secondary{background:#64748b}
-    .drop{border:2px dashed #e2e8f0;border-radius:8px;padding:18px;text-align:center;color:#475569;margin:12px 0}
+    .drop{border:2px dashed #e2e8f0;padding:18px;text-align:center;color:#475569;margin:12px 0}
     ul.files{list-style:none;padding:0;margin:12px 0}
-    li.file{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border-radius:8px;background:#f1f5f9;margin-bottom:8px}
-    pre{white-space:pre-wrap;word-break:break-word;background:#0f172a;color:#f8fafc;padding:12px;border-radius:8px;overflow:auto}
+    li.file{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:#f1f5f9;margin-bottom:8px}
+    pre{white-space:pre-wrap;word-break:break-word;background:#0f172a;color:#f8fafc;padding:12px;overflow:auto}
     .small{font-size:13px;color:#64748b}
     .download-all{margin-top:12px}
     a.link{color:#0ea5a4}
@@ -24,7 +24,7 @@
 </head>
 <body>
   <div class="card">
-    <h1>Image‑split Text Cleaner</h1>
+    <h1>Split text file into multiple files</h1>
     <p class="lead">Upload a plain text file. The script splits the file on occurrences of <code>Image &lt;number&gt;</code>, removes the marker and a leading <code>Transcription:</code> (if present immediately after the marker), and preserves all line breaks and symbols. Download each split file or a ZIP containing them all.</p>
 
     <div class="controls">
