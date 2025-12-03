@@ -9,11 +9,11 @@ body {
 button {
     cursor: pointer;
     padding: 12px;
-    background-color: bisque;
+    background-color: lightgreen;
 }
 
 .container {
-    border: 1px solid cornflowerblue;
+    border: 4px double dodgerblue;
     margin: 12px auto;
     padding: 22px;
     max-width: 988px;
@@ -21,10 +21,11 @@ button {
 
 input {
     cursor: pointer;
-    background-color: floralwhite;
-    padding: 12px;
 }
 
+li {
+    padding: 4px;
+}
 summary {
     cursor: pointer;
 }
