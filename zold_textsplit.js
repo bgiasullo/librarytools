@@ -1,23 +1,23 @@
 const $ = id => document.getElementById(id);
+
 const fileInput = $('fileInput');
-const outputList = $('outputList');
 const status = $('status');
 const zipWrap = $('zipWrap');
+
 let splitFiles = [];
+
+$('clearBtn').onclick = resetUI;
+$('processBtn').onclick = handleProcess;
 
 // ------------------ UI Helpers ------------------
 function setStatus(t) { status.textContent = t; }
+
 function resetUI() {
-  outputList.innerHTML = '';
-  outputList.hidden = true;
   zipWrap.hidden = true;
   splitFiles = [];
   setStatus('');
   fileInput.value = '';
 }
-
-$('clearBtn').onclick = resetUI;
-$('processBtn').onclick = handleProcess;
 
 // ------------------ Processing ------------------
 function handleProcess() {
@@ -32,13 +32,18 @@ function handleProcess() {
       const parts = splitByImage(text);
       if (!parts.length) return setStatus('No Image <number> markers found.');
 
-      buildList(parts);
-      setStatus(`Created ${parts.length} file(s).`);
+      splitFiles = parts.map(p =>
+        ({ name: p.name, blob: new Blob([p.text], {type:'text/plain'}) })
+      );
+
+      zipWrap.hidden = false;
+      setStatus(`Prepared ${parts.length} file(s). Ready to ZIP.`);
     } catch (err) {
       console.error(err);
       setStatus('Error: ' + err.message);
     }
   };
+
   reader.onerror = () => setStatus('Error reading file.');
   reader.readAsText(file, 'utf-8');
 }
@@ -52,7 +57,7 @@ function splitByImage(text) {
   while ((m = regex.exec(text))) {
     let content = m[2]
       .replace(/^\s*Transcription:\s*/i, '')   // drop leading "Transcription:"
-      .replace(/^\n+|\n+$/g, '');              // trim leading/trailing newlines only
+      .replace(/^\n+|\n+$/g, '');              // trim leading/trailing newlines
 
     out.push({
       name: `image_${m[1]}.txt`,
@@ -62,7 +67,7 @@ function splitByImage(text) {
   return out;
 }
 
-  // ------------------ ZIP Download ------------------
+// ------------------ ZIP Download ------------------
 $('downloadZip').onclick = async () => {
   if (!splitFiles.length) return;
   setStatus('Creating ZIP...');
@@ -71,7 +76,7 @@ $('downloadZip').onclick = async () => {
   splitFiles.forEach(f => zip.file(f.name, f.blob));
 
   const blob = await zip.generateAsync({type: 'blob'});
-  saveAs(blob, 'image_splits.zip');
+  saveAs(blob, 'split_texts.zip');
   setStatus(`ZIP downloaded.`);
 };
 
@@ -79,33 +84,3 @@ $('downloadZip').onclick = async () => {
 fileInput.onchange = () => {
   if (fileInput.files[0]) setStatus('Selected: ' + fileInput.files[0].name);
 };
-  
-// Build download list
-function buildList(parts) {
-  outputList.innerHTML = '';
-  outputList.hidden = false;
-  zipWrap.hidden = false;
-
-  splitFiles = parts.map(p =>
-    ({ name: p.name, blob: new Blob([p.text], {type:'text/plain'}) })
-  );
-
-  parts.forEach((p, i) => {
-    const li = document.createElement('li');
-    li.className = 'file-item';
-
-    li.innerHTML = `
-      <div>
-        <strong>${p.name}</strong>
-        <pre>${p.text.slice(0, 800)}${p.text.length > 800 ? '\n…(truncated)' : ''}</pre>
-      </div>
-    `;
-
-    const btn = document.createElement('button');
-    btn.textContent = 'Download';
-    btn.onclick = () => saveAs(splitFiles[i].blob, splitFiles[i].name);
-
-    li.appendChild(btn);
-    outputList.appendChild(li);
-  });
-}
