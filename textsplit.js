@@ -1,51 +1,51 @@
 const $ = id => document.getElementById(id);
 
-const fileInput = $('fileInput');
-const status = $('status');
+const fileInputText = $('fileInputText');
+const statusText = $('statusText');
 const zipWrap = $('zipWrap');
 
 
 let splitFiles = [];
 
-$('clearBtn').onclick = resetUI;
-$('processBtn').onclick = handleProcess;
+$('clearBtnText').onclick = resetUI;
+$('processBtnText').onclick = handleProcess;
 
 // ------------------ UI Helpers ------------------
-function setStatus(t) { status.textContent = t; }
+function setStatusText(t) { statusText.textContent = t; }
 
 function resetUI() {
   zipWrap.hidden = true;
   splitFiles = [];
-  setStatus('');
-  fileInput.value = '';
+  setStatusText('');
+  fileInputText.value = '';
 }
 
 // ------------------ Processing ------------------
 function handleProcess() {
-  const file = fileInput.files[0];
-  if (!file) return setStatus('Choose a .txt file first.');
-  setStatus('Reading...');
+  const file = fileInputText.files[0];
+  if (!file) return setStatusText('Choose a .txt file first.');
+  setStatusText('Reading...');
 
   const reader = new FileReader();
   reader.onload = e => {
     try {
       const text = e.target.result;
       const parts = splitByImage(text);
-      if (!parts.length) return setStatus('No Image <number> markers found.');
+      if (!parts.length) return setStatusText('No Image <number> markers found.');
 
       splitFiles = parts.map(p =>
         ({ name: p.name, blob: new Blob([p.text], {type:'text/plain'}) })
       );
 
       zipWrap.hidden = false;
-      setStatus(`Prepared ${parts.length} file(s). Ready to ZIP.`);
+      setStatusText(`Prepared ${parts.length} file(s). Ready to ZIP.`);
     } catch (err) {
       console.error(err);
-      setStatus('Error: ' + err.message);
+      setStatusText('Error: ' + err.message);
     }
   };
 
-  reader.onerror = () => setStatus('Error reading file.');
+  reader.onerror = () => setStatusText('Error reading file.');
   reader.readAsText(file, 'utf-8');
 }
 
@@ -57,14 +57,14 @@ function splitByImage(text) {
 
   while ((m = regex.exec(text))) {   
     const num = String(m[1]).padStart(4, '0');
-    const baseName = fileInput.files[0].name.replace(/\.[^.]+$/, ""); // remove extension
+    const baseName = fileInputText.files[0].name.replace(/\.[^.]+$/, ""); // remove extension
 
     let content = m[2]
       .replace(/^\s*Transcription:\s*/i, '')   // drop leading "Transcription:"
       .replace(/^\n+|\n+$/g, '');              // trim leading/trailing newlines
 
     out.push({
-      name: `${baseName}_${num}.txt`, // ${fileInput.files[0].name} image
+      name: `${baseName}_${num}.txt`, // ${fileInputText.files[0].name} image
       text: content
     });
   }
@@ -74,18 +74,18 @@ function splitByImage(text) {
 // ------------------ ZIP Download ------------------
 $('downloadZip').onclick = async () => {
   if (!splitFiles.length) return;
-  setStatus('Creating ZIP...');
+  setStatusText('Creating ZIP...');
 
   const zip = new JSZip();
   splitFiles.forEach(f => zip.file(f.name, f.blob));
 
   const blob = await zip.generateAsync({type: 'blob'});
-  const baseName = fileInput.files[0].name.replace(/\.[^.]+$/, ""); // remove extension
+  const baseName = fileInputText.files[0].name.replace(/\.[^.]+$/, ""); // remove extension
   saveAs(blob, `${baseName}.zip`); 
-  setStatus(`ZIP downloaded.`);
+  setStatusText(`ZIP downloaded.`);
 };
 
 // Show file name on selection
-fileInput.onchange = () => {
-  if (fileInput.files[0]) setStatus('Selected: ' + fileInput.files[0].name);
+fileInputText.onchange = () => {
+  if (fileInputText.files[0]) setStatusText('Selected: ' + fileInputText.files[0].name);
 };
