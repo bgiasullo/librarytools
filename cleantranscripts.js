@@ -64,14 +64,14 @@ function cosineSimilarity(a, b) {
 // ----- MAIN PROCESS -----
 function processCSV() {
   const file = document.getElementById("csvfile").files[0];
-  const status = document.getElementById("status");
+  const statusCSVCSV = document.getElementById("statusCSVCSV");
 
   if (!file) {
-    status.textContent = "Please upload a CSV file.";
+    statusCSV.textContent = "Please upload a CSV file.";
     return;
   }
 
-  status.textContent = "Reading CSV...";
+  statusCSV.textContent = "Reading CSV...";
 
   Papa.parse(file, {
     header: true,
@@ -81,7 +81,7 @@ function processCSV() {
       // Keep needed columns
       let rows = filterColumns(results.data);
 
-      status.textContent = "Cleaning text...";
+      statusCSV.textContent = "Cleaning text...";
 
       rows = rows.map(row => {
         let txt = row.annotations;
@@ -94,7 +94,7 @@ function processCSV() {
         return { ...row, annotations: txt };
       });
 
-      status.textContent = "Comparing annotations...";
+      statusCSV.textContent = "Comparing annotations...";
 
       // Group by subject_ids
       const groups = {};
@@ -134,7 +134,7 @@ function processCSV() {
         });
       }
 
-      status.textContent = "Preparing download...";
+      statusCSV.textContent = "Preparing download...";
 
       const outCSV = Papa.unparse(finalRows);
       const blob = new Blob([outCSV], { type: "text/csv" });
@@ -146,7 +146,7 @@ function processCSV() {
       a.click();
 
       URL.revokeObjectURL(url);
-      status.textContent = "Done! Your cleaned CSV has downloaded.";
+      statusCSV.textContent = "Done! Your cleaned CSV has downloaded.";
     }
   });
 }
