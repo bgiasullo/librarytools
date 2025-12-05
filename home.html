@@ -45,42 +45,6 @@
 
         <h2>Zooniverse tools</h2>
 
-
-        <div class="tool">
-
-            <details>
-                <summary>Split text file into multiple files on image [number]</summary>
-
-
-                <p>Useful if you have a plain text file containing multiple image transcriptions, each separated by Image [number], and need to separate them for upload to Zooniverse. Accepts a plain text file and performs the following actions:</p>
-
-                <ol>
-                    <li>Splits the text file by image [number] into multiple files</li>
-                    <li>Removes the image [number] header and the leading 'transcription:' if needed</li>
-                    <li>Produces a ZIP file containing all text files for download</li>
-                </ol>
-
-                    <input id="fileInputText" type="file" accept=".txt">
-                    <button id="processBtnText">Process</button>
-                    <button id="clearBtnText">Clear</button>
-
-                <ul id="outputList" hidden></ul>
-
-                <div id="statusText" class="small"></div>
-
-                <div id="zipWrap" hidden>
-
-                    <button id="downloadZip">Download zipped text files</button>
-                </div>
-
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-                <script src="textsplit.js"></script>
-
-            </details>
-
-        </div>
-
          <div class="tool">
 
             <details>
