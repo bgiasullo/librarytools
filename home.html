@@ -59,11 +59,9 @@
                     <li>Produces a ZIP file containing all text files for download</li>
                 </ol>
 
-                <div class="controls">
                     <input id="fileInputText" type="file" accept=".txt">
                     <button id="processBtnText">Process</button>
                     <button id="clearBtnText">Clear</button>
-                </div>
 
                 <ul id="outputList" hidden></ul>
 
@@ -98,19 +96,18 @@
                 <label>Input text to split file on:
                     <input id="splitString" type="text">
                 </label>
-               
-                
-               <button id="processBtnString">Process</button>
-<button id="clearBtnString">Clear</button>
 
+                <input id="fileInputString" type="file" accept=".txt">
+                    <button id="processBtnString">Process</button>
+                    <button id="clearBtnString">Clear</button>
+                
 <p id="statusString"></p>
 
 <div id="zipWrapString" hidden>
-  <button id="downloadZip">Download ZIP</button>
+  <button id="downloadZipString">Download ZIP</button>
 </div>
 
                     <button id="downloadZip">Download zipped text files</button>
-                </div>
 
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
