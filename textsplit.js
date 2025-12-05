@@ -76,11 +76,10 @@ function getSplitter() {
 // Core splitting logic
 function splitByImage(text) {
 
-    const regex = textSplitter;
     const out = [];
     let m;
 
-    while ((m = regex.exec(text))) {
+    while ((m = textSplitter.exec(text))) {
         const numT = String(m[1]).padStart(4, '0');
         const baseNameT = fileInputText.files[0].name.replace(/\.[^.]+$/, ""); // remove extension
 
