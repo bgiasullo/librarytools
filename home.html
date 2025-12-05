@@ -93,16 +93,16 @@
                     <li>Produces a ZIP file containing all text files for download</li>
                 </ol>
 
-               
-
                 <input id="fileInputString" type="file" accept=".txt">
-                    <button id="processBtnString">Process</button>
-                    <button id="clearBtnString">Clear</button>
-                
-                 <label>Enter text to split file on:
+
+                          <label>Enter text to split file on:
                     <input id="splitString" type="text">
                 </label>
                 
+                    <button id="processBtnString">Process</button>
+                    <button id="clearBtnString">Clear</button>
+                
+       
 <p id="statusString"></p>
 
 <div id="zipWrapString" hidden>
@@ -111,8 +111,6 @@
 
                     <button id="downloadZip">Download zipped text files</button>
 
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
                 <script src="splitonstring.js"></script>
 
             </details>
