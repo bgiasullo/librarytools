@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <title>Library Tools</title>
     <link rel="stylesheet" href="style.css">
+</head>
 
     <div class="container">
     <h2>BHL tools</h2>
@@ -38,44 +39,42 @@
 
         <h2>Zooniverse tools</h2>
 
-
-        <div class="tool">
+         <div class="tool">
 
             <details>
-                <summary>Split text file into multiple files</summary>
+                <summary>Split text file into multiple files on instances of string input</summary>
 
-
-                <p>Useful if you have a plain text file containing multiple image transcriptions, each separated by Image [number], and need to separate them for upload to Zooniverse. Accepts a plain text file and performs the following actions:</p>
+                <p>Useful if you have a plain text file containing multiple image transcriptions, each separated by a text string of your choosing, and need to separate them for upload to Zooniverse. Accepts a plain text file and a text input and performs the following actions:</p>
 
                 <ol>
-                    <li>Splits the text file by Image [number] into multiple files</li>
-                    <li>Removes the Image [number] header and the leading 'Transcription:' if needed</li>
+                    <li>Splits the text file on the string you entered into multiple files</li>
                     <li>Produces a ZIP file containing all text files for download</li>
                 </ol>
 
-                <div class="controls">
-                    <input id="fileInputText" type="file" accept=".txt">
-                    <button id="processBtnText">Process</button>
-                    <button id="clearBtnText">Clear</button>
-                </div>
+                <input id="fileInputString" type="file" accept=".txt">
 
-                <ul id="outputList" hidden></ul>
+                          <label>Enter text to split file on:
+                    <input type="text" id="splitString">
+                </label>
+                
+                    <button id="processBtnString">Process</button>
+                    <button id="clearBtnString">Clear</button>
+                
+       
+<p id="statusString"></p>
 
-                <div id="statusText" class="small"></div>
-
-                <div id="zipWrap" hidden>
-
-                    <button id="downloadZip">Download zipped text files</button>
-                </div>
-
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-                <script src="textsplit.js"></script>
+<div id="zipWrapString" hidden>
+  <button id="downloadZipString">Download ZIP</button>
+</div>
 
             </details>
+             
+             <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+                <script src="splitonstring.js"></script>
 
         </div>
-
+        
         <div class="tool">
 
             <details>
@@ -125,8 +124,6 @@
         </div>
 
     </div>
-
-    
 
     </body>
 
