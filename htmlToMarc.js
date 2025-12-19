@@ -28,6 +28,15 @@
  *  - 856 electronic location/link
  */
 
+// Read file
+document.getElementById("processBtnXhtmlForMARC").onclick = function () {
+  const file = document.getElementById("fileInputXhtmlForMARC").files[0];
+  if (!file) return alert("Please upload an .xhtml file.");
+
+  const reader = new FileReader();
+  reader.onload = () => convertHtmlToMarcXml(reader.result);
+};
+
 async function convertHtmlToMarcXml(htmlOrFile, opts = {}) {
   const { controlNumberPrefix = '', defaultLeader = '00000nam a2200000 a 4500' } = opts;
 
