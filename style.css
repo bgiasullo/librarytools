@@ -8,11 +8,11 @@ body {
 
 button {
     padding: 12px;
-    background-color: #DFBAC1;
+    background-color: Moccasin;
 }
 
 .container {
-    border: 1px solid #86B4C1;
+    border: 1px solid DarkSlateBlue;
     margin: 12px auto;
     padding: 22px;
     max-width: 888px;
@@ -27,7 +27,7 @@ summary {
 }
 
 .tool {
-    border: 1px dashed #86B4C1;
+    border: 1px dashed IndianRed;
     margin: 12px auto;
     padding: 14px;
 }
