@@ -16,7 +16,7 @@
     <div class="container">
     <h2>BHL tools</h2>
 
-    <div class="tool">
+           <div class="tool">
 
         <details>
             <summary>
@@ -33,6 +33,41 @@
 <a id="downloadLink"></a>
 
                         <script src="cleanXhtml.js"></script>
+            
+        </details>
+
+    </div>
+        
+    <div class="tool">
+
+        <details>
+            <summary>
+            Create MARC XML file from archival metadata
+        </summary>
+
+             <p>Complete the metadata form and submit. Outputs a minimal MARC XML file that fits specific requirements for upload to BHL.
+             </p>
+<form id="marcForm">
+  <p>001 Control Number*<br><input id="marc_f001"></p>
+
+  <p>008 Language Code*<br><input id="marc_lang008" maxlength="3"></p>
+  <p>008 Start Year*<br><input id="marc_startYear" maxlength="4"></p>
+  <p>008 End Year*<br><input id="marc_endYear" maxlength="4"></p>
+
+  <p>041 Language Code<br><input id="marc_f041" maxlength="3"></p>
+  <p>100 Author<br><input id="marc_f100"></p>
+  <p>245 Title*<br><input id="marc_f245"></p>
+  <p>520 Summary<br><textarea id="marc_f520"></textarea></p>
+  <p>545 Biographical / Historical Note<br><textarea id="marc_f545"></textarea></p>
+  <p>650 Subject (LCSH)*<br><input id="marc_f650"></p>
+  <p>830 Collection ID<br><input id="marc_f830"></p>
+
+  <button type="submit">Generate XML</button>
+</form>
+
+<p id="marc_status"></p>
+
+<script src="createMarcXml.js"></script>
             
         </details>
 
