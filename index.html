@@ -7,124 +7,193 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-    <div class="container">
+<div class="container">
     <h2>BHL tools</h2>
 
     <div class="tool">
 
         <details>
             <summary>
-            Clean XHTML transcription file for import to BHL
-        </summary>
+                Clean XHTML transcription file for import to BHL
+            </summary>
 
-             <p>Useful if you are downloading transcription XHTML files (usually from FromThePage) and need to import them to BHL, but BHL Admin rejects the XHTML file.</p> 
+            <p>Useful if you are downloading transcription XHTML files (usually from FromThePage) and need to import them to BHL, but BHL Admin rejects the XHTML file.</p>
             <p>This will parse the XHTML and output only the text you need as a CSV file. You can then get the BHL page IDs and sequence numbers, confirm the text aligns to the correct pages, and import to BHL.
-             </p>
+            </p>
 
-<input type="file" id="fileInputXHTML" accept=".xhtml" />
-<button id="processBtnXhtml">Process File</button>
-<br><br>
-<a id="downloadLink"></a>
+            <input type="file" id="fileInputXHTML" accept=".xhtml" />
+            <button id="processBtnXhtml">Process File</button>
+            <br>
+            <br>
+            <a id="downloadLink"></a>
 
-                        <script src="cleanXhtml.js"></script>
-            
+            <script src="cleanXhtml.js"></script>
+
         </details>
 
     </div>
-            
+
+    <div class="tool">
+
+        <details>
+            <summary>
+                Create MARC XML file from archival metadata
+            </summary>
+
+            <p>Complete the metadata form and submit. Outputs a minimal MARC XML file that fits specific requirements for import to BHL. 
+                <br>* = required field
+            </p>
+            <form id="marcForm">
+                <p>001 Control Number (Collection ID)*
+                    <br>
+                    <input id="marc_f001">
+                </p>
+
+                <p>008 Language Code*
+                    <br>
+                    <input id="marc_lang008" maxlength="3">
+                </p>
+                <p>008 Start Year*
+                    <br>
+                    <input id="marc_startYear" maxlength="4">
+                </p>
+                <p>008 End Year*
+                    <br>
+                    <input id="marc_endYear" maxlength="4">
+                </p>
+
+                <p>041 Language Code
+                    <br>
+                    <input id="marc_f041" maxlength="3">
+                </p>
+                <p>100 Author
+                    <br>
+                    <input id="marc_f100">
+                </p>
+                <p>245 Title*
+                    <br>
+                    <input id="marc_f245">
+                </p>
+                <p>520 Summary
+                    <br>
+                    <textarea id="marc_f520"></textarea>
+                </p>
+                <p>545 Biographical / Historical Note
+                    <br>
+                    <textarea id="marc_f545"></textarea>
+                </p>
+                <p>650 Subject (LCSH)*
+                    <br>
+                    <input id="marc_f650">
+                </p>
+                <p>830 Collection ID
+                    <br>
+                    <input id="marc_f830">
+                </p>
+
+                <button type="submit">Generate XML</button>
+            </form>
+
+            <p id="marc_status"></p>
+
+            <script src="createMarcXml.js"></script>
+
+        </details>
+
     </div>
-    
-    <div class="container">
 
-
-        <h2>Zooniverse tools</h2>
-
-         <div class="tool">
-
-            <details>
-                <summary>Split text file into multiple files on instances of string input</summary>
-
-                <p>Useful if you have a plain text file containing multiple image transcriptions, each separated by a text string of your choosing, and need to separate them for upload to Zooniverse. Accepts a plain text file and a text input and performs the following actions:</p>
-
-                <ol>
-                    <li>Splits the text file on the string you entered into multiple files</li>
-                    <li>Produces a ZIP file containing all text files for download</li>
-                </ol>
-
-                <input id="fileInputString" type="file" accept=".txt">
-
-                          <label>Enter text to split file on:
-                    <input type="text" id="splitString">
-                </label>
-                
-                    <button id="processBtnString">Process</button>
-                    <button id="clearBtnString">Clear</button>
-                
-       
-<p id="statusString"></p>
-
-<div id="zipWrapString" hidden>
-  <button id="downloadZipString">Download ZIP</button>
 </div>
 
-            </details>
-             
-             <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-                <script src="splitOnString.js"></script>
+<div class="container">
 
-        </div>
-        
-        <div class="tool">
+    <h2>Zooniverse tools</h2>
 
-            <details>
+    <div class="tool">
 
-                <summary>Zooniverse data cleanup and BHL prep</summary>
+        <details>
+            <summary>Split text file into multiple files on instances of string input</summary>
 
-                <p>Useful if you download transcription data from Zooniverse and need to prepare it for upload into BHL. Accepts a CSV file and performs the following actions:</p>
-                <ol>
-                    <li>Removes all but the necessary columns (annotations and subject_ids) from your Zooniverse data file</li>
-                    <li>Removes extraneous text (things like [{"task":"T4","value":")</li>
-                    <li>Finds and replaces unicode with its corresponding symbol (for example: \u0026 is replaced with &)</li>
-                    <li>Adds this statement to every transcript: [This text was generated by AI then edited by volunteers. The text contains errors.] </li>
-                    <li>Compares multiple annotations for each subject, finds the two most similar annotations, then selects one of them to be the final transcript</li>
-                </ol>
+            <p>Useful if you have a plain text file containing multiple image transcriptions, each separated by a text string of your choosing, and need to separate them for upload to Zooniverse. Accepts a plain text file and a text input and performs the
+                following actions:</p>
 
-                <p>Upload your Zooniverse data as a CSV file and press 'Process CSV.' When the process is done, your cleaned data file will be downloaded as cleaned-zooniverse-data.csv.</p>
+            <ol>
+                <li>Splits the text file on the string you entered into multiple files</li>
+                <li>Produces a ZIP file containing all text files for download</li>
+            </ol>
 
-                <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
-                <script defer src="cleanZoonData.js"></script>
+            <input id="fileInputString" type="file" accept=".txt">
 
-                <input type="file" id="csvfile" accept=".csv">
+            <label>Enter text to split file on:
+                <input type="text" id="splitString">
+            </label>
 
-                <button onclick="processCSV()">Process CSV</button>
+            <button id="processBtnString">Process</button>
+            <button id="clearBtnString">Clear</button>
 
-                <div id="statusCSV"></div>
+            <p id="statusString"></p>
 
-                <p>
-                    <strong>WARNING:</strong> If opening your cleaned CSV file in Microsoft Excel, follow the steps below, otherwise symbols will not display properly and will create unwanted characters.
-                    <ol>
-                        <li>Open a blank Excel workbook</li>
-                        <li>Select Data from the top menu</li>
-                        <li>Select From Text/CSV</li>
-                        <li>Find your file and select Open</li>
-                        <li>Confirm the File Origin is 65001: Unicode (UTF-8). If not, change it.</li>
-                        <li>Select Load</li>
-                    </ol>
-                </p>
-                
-                <h3>Next steps</h3>
+            <div id="zipWrapString" hidden>
+                <button id="downloadZipString">Download ZIP</button>
+            </div>
 
-                <ol>
-                    <li>Get the BHL page IDs and sequence numbers from the BHL admin system.</li>
-                    <li>Confirm your only headers are PageID, SequenceNumber, and Text (case-sensitive).</li>
-                    <li>Confirm PageIDs and SequendeNumber columns are aligned with correct text.</li>
-                </ol>
-            </details>
-        </div>
+        </details>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+        <script src="splitOnString.js"></script>
 
     </div>
 
-    </body>
+    <div class="tool">
+
+        <details>
+
+            <summary>Zooniverse data cleanup and BHL prep</summary>
+
+            <p>Useful if you download transcription data from Zooniverse and need to prepare it for upload into BHL. Accepts a CSV file and performs the following actions:</p>
+            <ol>
+                <li>Removes all but the necessary columns (annotations and subject_ids) from your Zooniverse data file</li>
+                <li>Removes extraneous text (things like [{"task":"T4","value":")</li>
+                <li>Finds and replaces unicode with its corresponding symbol (for example: \u0026 is replaced with &)</li>
+                <li>Adds this statement to every transcript: [This text was generated by AI then edited by volunteers. The text contains errors.] </li>
+                <li>Compares multiple annotations for each subject, finds the two most similar annotations, then selects one of them to be the final transcript</li>
+            </ol>
+
+            <p>Upload your Zooniverse data as a CSV file and press 'Process CSV.' When the process is done, your cleaned data file will be downloaded as cleaned-zooniverse-data.csv.</p>
+
+            <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+            <script defer src="cleanZoonData.js"></script>
+
+            <input type="file" id="csvfile" accept=".csv">
+
+            <button onclick="processCSV()">Process CSV</button>
+
+            <div id="statusCSV"></div>
+
+            <p>
+                <strong>WARNING:</strong> If opening your cleaned CSV file in Microsoft Excel, follow the steps below, otherwise symbols will not display properly and will create unwanted characters.
+                <ol>
+                    <li>Open a blank Excel workbook</li>
+                    <li>Select Data from the top menu</li>
+                    <li>Select From Text/CSV</li>
+                    <li>Find your file and select Open</li>
+                    <li>Confirm the File Origin is 65001: Unicode (UTF-8). If not, change it.</li>
+                    <li>Select Load</li>
+                </ol>
+            </p>
+
+            <h3>Next steps</h3>
+
+            <ol>
+                <li>Get the BHL page IDs and sequence numbers from the BHL admin system.</li>
+                <li>Confirm your only headers are PageID, SequenceNumber, and Text (case-sensitive).</li>
+                <li>Confirm PageIDs and SequendeNumber columns are aligned with correct text.</li>
+            </ol>
+        </details>
+    </div>
+
+</div>
+
+</body>
 
 </html>
