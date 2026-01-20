@@ -55,8 +55,8 @@
     if (data.f100) {
       xml +=
 `<datafield tag="100" ind1="1" ind2=" ">
-  <subfield code="a">${data.f100},</subfield>
-  <subfield code="e">author.</subfield>
+  <subfield code="a">${data.f100}</subfield>
+  <subfield code="e">author</subfield>
 </datafield>
 `;
     }
