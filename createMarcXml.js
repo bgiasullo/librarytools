@@ -43,7 +43,7 @@
   <subfield code="a">ANS</subfield>
 </datafield>
 `;
-
+    
      if (data.f035) {
       xml +=
 `<datafield tag="035" ind1=" " ind2=" ">
