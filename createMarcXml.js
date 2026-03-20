@@ -44,6 +44,14 @@
 </datafield>
 `;
 
+     if (data.f035) {
+      xml +=
+`<datafield tag="035" ind1=" " ind2=" ">
+  <subfield code="a">(OCoLC)${data.f035}</subfield>
+</datafield>
+`;
+    }
+
     if (data.f041) {
       xml +=
 `<datafield tag="041" ind1="0" ind2=" ">
