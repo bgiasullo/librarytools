@@ -43,11 +43,14 @@
   <subfield code="a">ANS</subfield>
 </datafield>
 `;
-    
+
+	 const field035 =
+		'(OCoLC)' +
+		data.f035;
+	  
      if (data.f035) {
-    		const field035 =
-					'(OCoLC)' +
-					data.f035;
+    	xml +=
+field035;
     }
 
     if (data.f041) {
