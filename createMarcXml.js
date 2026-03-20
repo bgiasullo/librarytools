@@ -45,11 +45,9 @@
 `;
     
      if (data.f035) {
-      xml +=
-`<datafield tag="035" ind1=" " ind2=" ">
-  <subfield code="a">(OCoLC)${data.f035}</subfield>
-</datafield>
-`;
+    		const field035 =
+					'(OCoLC)' +
+					data.f035;
     }
 
     if (data.f041) {
