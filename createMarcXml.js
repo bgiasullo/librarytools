@@ -44,15 +44,6 @@
 </datafield>
 `;
 
-	 const field035 =
-		'(OCoLC)' +
-		data.f035;
-	  
-     if (data.f035) {
-    	xml +=
-field035;
-    }
-
     if (data.f041) {
       xml +=
 `<datafield tag="041" ind1="0" ind2=" ">
